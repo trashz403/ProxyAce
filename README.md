@@ -11,7 +11,7 @@ ProxyAce is a Python tool designed to validate and manage proxy lists efficientl
 - **Flexible Usage:** Command-line arguments for easy integration into scripts.
 - **Simple Integration:** Intuitive and straightforward to use.
 
-## Installation
+## Installation {Termux , Linux} Linux users use sudo
 
 ```bash
 git clone https://github.com/trashz403/ProxyAce
@@ -33,6 +33,24 @@ or
 
 ```bash
 proxyace --proxy-list proxy-list.txt --valid-proxy proxy-list.txt
+```
+
+### Windows
+
+```bash
+git clone https://github.com/trashz403/ProxyAce
+```
+
+```bash
+cd ProxyAce
+```
+
+```bash
+python3 proxyace --main
+```
+or 
+```bash
+python3 proxyace --proxy-list proxy-list.txt --valid-proxy proxy-list.txt
 ```
 
 ### Command-Line Arguments
