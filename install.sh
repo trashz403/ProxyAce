@@ -18,10 +18,12 @@ banner() {
 }
 
 require_root() {
-  if [[ $EUID -ne 0 ]]; then
-    echo -e "${red}This script must be run as root. Please use sudo or log in as root.${reset}"
-    exit 1
-  fi
+        if [[ -d /usr/bin ]]; then
+                if [[ $EUID -ne 0 ]]; then
+                        echo -e "${red}This script must be run as root. Please use sudo or log in as root.${reset}"
+                        exit 1
+                fi
+        fi
 }
 
 install_python_package() {
