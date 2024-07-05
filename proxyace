@@ -4,13 +4,20 @@ import argparse
 from validproxy import validproxy
 
 def banner():
-    print("""
-██████╗ ██████╗  ██████╗ ██╗  ██╗██╗   ██╗ █████╗  ██████╗███████╗
-██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔════╝
-██████╔╝██████╔╝██║   ██║ ╚███╔╝  ╚████╔╝ ███████║██║     █████╗
-██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗   ╚██╔╝  ██╔══██║██║     ██╔══╝
-██║     ██║  ██║╚██████╔╝██╔╝ ██╗   ██║   ██║  ██║╚██████╗███████╗
-╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚══════╝
+    white = "\033[97m"
+    green = "\033[92m"
+    reset = "\033[0m"
+
+    print(f"""
+{white}+--------------------------------------------------------------------+
+{white}| {green}██████╗ ██████╗  ██████╗ ██╗  ██╗██╗   ██╗ █████╗  ██████╗███████╗ {white}|
+{white}|{green} ██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔════╝ {white}|
+{white}|{green} ██████╔╝██████╔╝██║   ██║ ╚███╔╝  ╚████╔╝ ███████║██║     █████╗   {white}|
+{white}|{green} ██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗   ╚██╔╝  ██╔══██║██║     ██╔══╝  {white}|
+{white}|{green} ██║     ██║  ██║╚██████╔╝██╔╝ ██╗   ██║   ██║  ██║╚██████╗███████╗ {white}|
+{white}|{green} ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚══════╝ {white}|
+{white}+--------------------------------------------------------------------+
+{reset}
     """)
 
 def read_proxies_from_file(file_path):
@@ -27,8 +34,8 @@ def main():
     banner()
 
     parser = argparse.ArgumentParser(description="Proxy Validator")
-    parser.add_argument('--proxy--list', type=str, help='Path to the proxy list file')
-    parser.add_argument('--valid--proxy', type=str, help='Path to save valid proxies')
+    parser.add_argument('--proxy-list', type=str, help='Path to the proxy list file')
+    parser.add_argument('--valid-proxy', type=str, help='Path to save valid proxies')
     parser.add_argument('--main', action='store_true', help='Run in interactive mode to ask for inputs')
 
     args = parser.parse_args()
@@ -37,20 +44,20 @@ def main():
         proxy_list = input("Enter the proxy file path: ")
         valid_proxy_save = input("Enter the valid proxy output file path: ")
     else:
-        if not args.proxy--list:
-            parser.error('--proxy--list is required unless --main is used')
-        proxy_list = args.proxy--list
-        valid_proxy_save = args.valid--proxy if args.valid--proxy else "valid_proxy.txt"
+        if not args.proxy_list:
+            parser.error('--proxy-list is required unless --main is used')
+        proxy_list = args.proxy_list
+        valid_proxy_save = args.valid_proxy if args.valid_proxy else "valid_proxy.txt"
 
     proxies = read_proxies_from_file(proxy_list)
     valid_proxies = []
 
     for proxy in proxies:
         if validproxy(proxy):
-            print(f'Valid proxy: {proxy}')
+            print(f'\033[92mValid proxy: {proxy}\033[0m')
             valid_proxies.append(proxy)
         else:
-            print(f'Invalid proxy: {proxy}')
+            print(f'\033[91mInvalid proxy: {proxy}\033[0m')
 
     save_valid_proxies(valid_proxy_save, valid_proxies)
 
