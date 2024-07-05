@@ -22,7 +22,7 @@ cd ProxyAce
 ```
 
 ```bash
-bash setup.sh
+python3 setup.py
 ```
 
 ```bash
@@ -43,6 +43,10 @@ git clone https://github.com/trashz403/ProxyAce
 
 ```bash
 cd ProxyAce
+```
+
+```python
+python3 setup.py
 ```
 
 ```bash
