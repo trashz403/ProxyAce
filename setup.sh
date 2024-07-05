@@ -59,6 +59,7 @@ linux_setup() {
   fi
 }
 
+
 main() {
   banner
   sleep 1
@@ -66,8 +67,11 @@ main() {
 
   if [[ -d /usr/bin ]]; then
     linux_setup
-  else
+  elif [[ -d /data/data/com.termux/files/home ]]; then
     termux_setup
+  else
+    install_python_package
+    exit
   fi
 
   if command -v proxyace > /dev/null; then
