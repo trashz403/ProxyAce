@@ -22,9 +22,12 @@ linux_setup()
 
 }
 
-if [[ -d /usr/bin ]]; then
-
-
-else
-
-fi
+main()
+{
+  banner
+  if [[ -d /usr/bin ]]; then
+    linux_setup
+  else
+    termux_app
+  fi
+}
