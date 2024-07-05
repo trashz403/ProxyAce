@@ -22,7 +22,7 @@ cd ProxyAce
 ```
 
 ```bash
-python3 setup.py
+bash install.sh
 ```
 
 ```bash
