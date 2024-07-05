@@ -41,8 +41,8 @@ def main():
     args = parser.parse_args()
 
     if args.main:
-        proxy_list = input(f"\033[97m[\033[92m+\033[97m] \033[92mEnter the proxy file path: \033[0m")
-        valid_proxy_save = input(f"\033[97m[\033[92m+\033[97m] \033[92mEnter the valid proxy output file path: \033[0m")
+        proxy_list = input(f"\033[97m[\033[92m+\033[97m] \033[92mEnter the proxy file path : \033[0m")
+        valid_proxy_save = input(f"\033[97m[\033[92m+\033[97m] \033[92mEnter the valid proxy output file path : \033[0m")
     else:
         if not args.proxy_list:
             parser.error('--proxy-list is required unless --main is used')
@@ -54,10 +54,10 @@ def main():
 
     for proxy in proxies:
         if validproxy(proxy):
-            print(f'\033[97m[\033[92m+\033[97m] \033[92mValid proxy: {proxy}\033[0m')
+            print(f'\033[97m[\033[92m+\033[97m] \033[92mValid proxy : {proxy}\033[0m')
             valid_proxies.append(proxy)
         else:
-            print(f'\033[97m[\033[91m-\033[97m] \033[91mInvalid proxy: {proxy}\033[0m')
+            print(f'\033[97m[\033[91m-\033[97m] \033[91mInvalid proxy : {proxy}\033[0m')
 
     save_valid_proxies(valid_proxy_save, valid_proxies)
 
