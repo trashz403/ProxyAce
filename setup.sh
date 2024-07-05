@@ -33,6 +33,7 @@ install_python_package() {
     echo -e "${white}[${red}-${white}] ${red}Failed to install Python package 'validproxy'.${reset}"
     exit 1
   fi
+  sleep 3
   clear
 }
 
