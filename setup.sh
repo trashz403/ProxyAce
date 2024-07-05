@@ -12,6 +12,12 @@ banner()
   echo -e '{white}+--------------------------------------------------------------------+{reset}'
 }
 
+if [[ -d /usr/bin ]]; then
+  if [ $(id -u) -ne 0 ]; then
+    echo "This script must be ran as root"
+  fi
+fi
+
 termux_app()
 {
   cp -r proxyace /data/data/com.termux/files/usr/bin/
