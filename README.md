@@ -1,10 +1,10 @@
 
 ```bash
-git clone https://github.com/trashz403/proxyace
+git clone https://github.com/trashz403/ProxyAce
 ```
 
 ```bash
-cd proxyace
+cd ProxyAce
 ```
 
 ```bash
