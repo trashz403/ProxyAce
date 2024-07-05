@@ -18,5 +18,5 @@ proxyace --main
 or 
 
 ```bash
-proxyace --proxy-list proxy.txt --valid-proxy out.txt
+proxyace --proxy-list proxy-list.txt --valid-proxy proxy-list.txt
 ```
