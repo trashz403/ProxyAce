@@ -18,15 +18,26 @@ banner() {
 }
 
 require_root() {
-  if [[ -d /usr/bin ]]; then
-    if [[ $EUID -ne 0 ]]; then
-      echo -e "${red}This script must be run as root. Please use sudo or log in as root.${reset}"
-      exit 1
-    fi
+  if [[ $EUID -ne 0 ]]; then
+    echo -e "${red}This script must be run as root. Please use sudo or log in as root.${reset}"
+    exit 1
   fi
 }
 
+install_python_package() {
+  echo -e "${white}[${cyan}*${white}] ${cyan}Installing Python package 'validproxy'...${reset}"
+  pip install validproxy
+  if [[ $? -eq 0 ]]; then
+    echo -e "${white}[${green}+${white}] ${green}Python package 'validproxy' installed successfully.${reset}"
+  else
+    echo -e "${white}[${red}-${white}] ${red}Failed to install Python package 'validproxy'.${reset}"
+    exit 1
+  fi
+  clear
+}
+
 termux_setup() {
+  install_python_package
   cp -r proxyace /data/data/com.termux/files/usr/bin/
   chmod +x /data/data/com.termux/files/usr/bin/proxyace
   if command -v proxyace > /dev/null; then
@@ -37,6 +48,7 @@ termux_setup() {
 }
 
 linux_setup() {
+  install_python_package
   cp -r proxyace /usr/bin/
   chmod +x /usr/bin/proxyace
   if command -v proxyace > /dev/null; then
