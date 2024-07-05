@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
 import argparse
+import signal
+import sys
 from validproxy import validproxy
 
 def banner():
@@ -16,9 +18,7 @@ def banner():
 {white}|{green} ██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗   ╚██╔╝  ██╔══██║██║     ██╔══╝   {white}|
 {white}|{green} ██║     ██║  ██║╚██████╔╝██╔╝ ██╗   ██║   ██║  ██║╚██████╗███████╗ {white}|
 {white}|{green} ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚══════╝ {white}|
-{white}+--------------------------------------------------------------------+
-{reset}
-    """)
+{white}+--------------------------------------------------------------------+{reset}""")
 
 def read_proxies_from_file(file_path):
     with open(file_path, 'r') as file:
@@ -29,6 +29,10 @@ def save_valid_proxies(file_path, valid_proxies):
     with open(file_path, 'w') as file:
         for proxy in valid_proxies:
             file.write(f"{proxy}\n")
+
+def signal_handler(sig, frame):
+    print('\n\033[91mProcess interrupted. Exiting gracefully...\033[0m')
+    sys.exit(0)
 
 def main():
     banner()
@@ -41,8 +45,8 @@ def main():
     args = parser.parse_args()
 
     if args.main:
-        proxy_list = input(f"\033[97m[\033[92m+\033[97m] \033[92mEnter the proxy file path : \033[0m")
-        valid_proxy_save = input(f"\033[97m[\033[92m+\033[97m] \033[92mEnter the valid proxy output file path : \033[0m")
+        proxy_list = input(f"\033[97m[\033[92m+\033[97m] \033[92mEnter the proxy file path: \033[0m")
+        valid_proxy_save = input(f"\033[97m[\033[92m+\033[97m] \033[92mEnter the valid proxy output file path: \033[0m")
     else:
         if not args.proxy_list:
             parser.error('--proxy-list is required unless --main is used')
@@ -54,12 +58,13 @@ def main():
 
     for proxy in proxies:
         if validproxy(proxy):
-            print(f'\033[97m[\033[92m+\033[97m] \033[92mValid proxy : {proxy}\033[0m')
+            print(f'\033[97m[\033[92m+\033[97m] \033[92mValid proxy: {proxy}\033[0m')
             valid_proxies.append(proxy)
         else:
-            print(f'\033[97m[\033[91m-\033[97m] \033[91mInvalid proxy : {proxy}\033[0m')
+            print(f'\033[97m[\033[91m-\033[97m] \033[91mInvalid proxy: {proxy}\033[0m')
 
     save_valid_proxies(valid_proxy_save, valid_proxies)
 
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, signal_handler)
     main()
